@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Button,
     Col,
@@ -13,6 +13,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 const NavBar = (props) => {
+    const [value, setValue] = useState('')
+    
+    const handleChange = e => {
+        setValue(e.target.value)
+    }
+
+    useEffect(() => {
+        if (props.handleFilter) props.handleFilter(value)
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [value])
 
     return (
         <>
@@ -25,12 +36,18 @@ const NavBar = (props) => {
                         are you looking for ?
                     </span>
                 </div>
-                <NavbarText>
-                    <div className="form-group has-search">
-                        <FontAwesomeIcon className="form-control-feedback" icon={faSearch} />
-                        <input type="text" className="form-control" placeholder={`Search ${props.title}`} />
-                    </div>
-                </NavbarText>
+                {props.handleFilter ? (
+                    <NavbarText>
+                        <div className="form-group has-search">
+                            <FontAwesomeIcon className="form-control-feedback" icon={faSearch} />
+                            <input type="text" className="form-control" onChange={handleChange} placeholder={`Search ${props.title}`} />
+                        </div>
+                    </NavbarText>
+                    ) : (
+                        null
+                    )
+                }
+                
                 <LogoPokemon id="LogoPokemon"/>
             </Navbar>
             <div id="NavBackground"></div>

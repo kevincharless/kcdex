@@ -3,7 +3,7 @@ import { FETCH_POKEMONS, FETCH_POKEMONDETAIL } from '../actions/types';
 const initialState = {
     pokemonLists:[],
     pokemons: [],
-    isLoading: true
+    isLoading: false
 
 }
 
@@ -14,12 +14,13 @@ export default function pokemonReducer(state = initialState, action) {
             return {
                 ...state,
                 pokemonLists: action.payload,
-                isLoading: false
+                isLoading: action.isLoading
             }
         case FETCH_POKEMONDETAIL:
             return {
                 ...state,
-                pokemons: [...state.pokemons, action.payload]
+                pokemons: [...state.pokemons, action.payload],
+                isLoading: action.isLoading
             }
         default: 
             return state

@@ -6,7 +6,8 @@ export const fetchPokemons = () => dispatch => {
         .then(res => {
             dispatch({
                 type: FETCH_POKEMONS,
-                payload: res.data.results
+                payload: res.data.results,
+                isLoading: true
             })
         })
         .catch(err => {
@@ -19,7 +20,8 @@ export const fetchPokemonDetail = (index) => (dispatch) => {
         .then(res => {
             dispatch({
                 type: FETCH_POKEMONDETAIL,
-                payload: res.data
+                payload: res.data,
+                isLoading: false
             })
         })
         .catch(err => {

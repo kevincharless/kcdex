@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Container,
     Col,
@@ -14,26 +14,41 @@ import { fetchPokemons, fetchPokemonDetail } from '../../redux/actions'
 const Home = () => {
     const dispatch = useDispatch()
     const pokemons = useSelector(state => state.pokemons)
-
+    const [pokemonFilter, setPokemonFilter] = useState([])
+    const [filterKeyword, setFilterKeywords] = useState("")
+    
     useEffect(() => {
         dispatch(fetchPokemons())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-        if(pokemons.isLoading === false) {
+        if(pokemons.isLoading === true) {
             pokemons.pokemonLists.map((pokemon, index) => 
                 dispatch(fetchPokemonDetail(index + 1))
             )
+            
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pokemons.isLoading])
+
+    useEffect(() => {
+        setPokemonFilter(pokemons.pokemons.filter(pokemon => {
+            return pokemon.name.toLowerCase().includes( filterKeyword.toLowerCase() )
+        }))
+    }, [filterKeyword, pokemons])
+
+    
+    const handleFilter = (value) => {
+        setFilterKeywords(value)
+    }
 
     return (
         <>
             <Navbar 
                 title="Pokémon"
                 backgroundColor="#FF6961"
+                handleFilter={handleFilter}
             />
             <Container className="pt-3">
                 <Row>
@@ -41,7 +56,7 @@ const Home = () => {
                 </Row>
                 
                 <Row>
-                    {pokemons.pokemons.map((pokemon, index) => 
+                    {pokemonFilter.map((pokemon, index) => 
                         <Col md="2" key={index}><Card pokemon={pokemon} type={pokemon.types[0].type.name} /></Col>
                     )}
                 </Row>
