@@ -1,13 +1,23 @@
 import React from 'react';
+import LoadingPage from '../loading';
 import Navbar from '../../components/NavBar/index';
 
+import { useSelector } from 'react-redux';
+
 const TypeCharts = () => {
+    const pokemons = useSelector(state => state.pokemons)
+
     return (
         <>
-            <Navbar 
-                title="Type"
-                backgroundColor="#A890F0"
-            />
+            {pokemons.isLoading ? (
+                <LoadingPage />
+                ) : (
+                <Navbar 
+                    title="Type"
+                    backgroundColor="#A890F0"
+                />
+                )
+            }
         </>
     )
 }

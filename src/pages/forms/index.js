@@ -5,6 +5,7 @@ import {
     Row
 } from 'reactstrap'
 import Card from '../../components/card';
+import LoadingPage from '../loading';
 import Navbar from '../../components/NavBar/index';
 
 import PropTypes from 'prop-types';
@@ -45,22 +46,29 @@ const Moves = () => {
 
     return (
         <>
-            <Navbar 
-                title="Form"
-                backgroundColor="#89CFF0"
-                handleFilter={handleFilter}
-            />
-            <Container className="pt-3">
-                <Row>
-                    <h1 className="fw-bold">Forms</h1>
-                </Row>
-                
-                <Row>
-                    {pokemonFilter.map((pokemon, index) => 
-                        <Col md="2" key={index}><Card pokemon={pokemon} type={pokemon.types[0].type.name} /></Col>
-                    )}
-                </Row>
-            </Container>
+            {pokemons.isLoading ? (
+                <LoadingPage />
+                ) : (
+                <>
+                    <Navbar 
+                        title="Form"
+                        backgroundColor="#89CFF0"
+                        handleFilter={handleFilter}
+                    />
+                    <Container className="pt-3">
+                        <Row>
+                            <h1 className="fw-bold">Forms</h1>
+                        </Row>
+                        
+                        <Row>
+                            {pokemonFilter.map((pokemon, index) => 
+                                <Col md="2" key={index}><Card pokemon={pokemon} type={pokemon.types[0].type.name} /></Col>
+                            )}
+                        </Row>
+                    </Container>
+                </>
+                )
+            }
         </>
     )
 }
