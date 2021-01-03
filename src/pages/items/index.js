@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
     Container,
     Col,
@@ -9,40 +9,33 @@ import LoadingPage from '../loading';
 import Navbar from '../../components/NavBar/index';
 
 import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { fetchPokemons, fetchPokemonDetail } from '../../redux/actions'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPokemons } from '../../redux/actions'
 
-const Moves = () => {
+const Items = () => {
     const dispatch = useDispatch()
-    const pokemons = useSelector(state => state.pokemons)
-    const [pokemonFilter, setPokemonFilter] = useState([])
-    const [filterKeyword, setFilterKeywords] = useState("")
+    const pokemons = useSelector(state => state.pokemons.pokemonLists)
+    // const [pokemonFilter, setPokemonFilter] = useState([])
+    // const [filterKeyword, setFilterKeywords] = useState("")
     
     useEffect(() => {
-        dispatch(fetchPokemons())
+        if(pokemons.length === 0) {
+            dispatch(fetchPokemons())
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useEffect(() => {
-        if(pokemons.isLoading === true) {
-            pokemons.pokemonLists.map((pokemon, index) => 
-                dispatch(fetchPokemonDetail(index + 1))
-            )
-            
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pokemons.isLoading])
-
-    useEffect(() => {
-        setPokemonFilter(pokemons.pokemons.filter(pokemon => {
-            return pokemon.name.toLowerCase().includes( filterKeyword.toLowerCase() )
-        }))
-    }, [filterKeyword, pokemons])
+    // useEffect(() => {
+    //     setPokemonFilter(pokemons.pokemons.filter(pokemon => {
+    //         return pokemon.name.toLowerCase().includes( filterKeyword.toLowerCase() )
+    //     }))
+    // }, [filterKeyword, pokemons])
 
     
     const handleFilter = (value) => {
-        setFilterKeywords(value)
+        // setFilterKeywords(value)
     }
+    
 
     return (
         <>
@@ -53,7 +46,6 @@ const Moves = () => {
                     <Navbar 
                         title="Item"
                         backgroundColor="#FDDD5C"
-                        handleFilter={handleFilter}
                     />
                     <Container className="pt-3">
                         <Row>
@@ -61,8 +53,8 @@ const Moves = () => {
                         </Row>
                         
                         <Row>
-                            {pokemonFilter.map((pokemon, index) => 
-                                <Col md="2" key={index}><Card pokemon={pokemon} type={pokemon.types[0].type.name} /></Col>
+                            {pokemons.map((pokemon, index) => 
+                                <Col md="2" key={index}><Card pokemons={pokemons} url={pokemon.url} /></Col>
                             )}
                         </Row>
                     </Container>
@@ -73,19 +65,10 @@ const Moves = () => {
     )
 }
 
-Moves.propTypes = {
+Items.propTypes = {
     fetchPokemons: PropTypes.func.isRequired,
     fetchPokemonDetail: PropTypes.func.isRequired,
     pokemons: PropTypes.array.isRequired,
 }
 
-const mapStateToProps = state => ({
-    pokemons: state.pokemons.pokemons
-})
-
-const mapDispatchToProp = dispatch => ({
-    fetchPokemons: () => dispatch(fetchPokemons()),
-    fetchPokemonDetail: () => dispatch(fetchPokemonDetail())
-})
-
-export default connect(mapStateToProps, mapDispatchToProp)(Moves)
+export default Items

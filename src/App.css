@@ -1,6 +1,7 @@
 .type {
     color: #fff;
     border-radius: 1.2rem;
+    height: 15rem;
     position: relative;
     overflow: hidden;
     padding: 1.8rem 1.8rem 0 1.8rem;
@@ -24,7 +25,7 @@
 #grass {
     background-color: #77DD77;
 }
-#poision {
+#poison {
     background-color: #A040A0;
 }
 #electric {
@@ -54,11 +55,14 @@
 #dark {
     background-color: #836953;
 }
-#steal {
+#steel {
     background-color: #B8B8D0;
 }
 #fairy {
     background-color: #FFB7CE;
+}
+#unknown {
+    background-color: rgb(0, 0, 0);
 }
 
 #Pokemon {
@@ -68,6 +72,7 @@
     z-index: 1;
 }
 #PokemonName {
+    height: 3em;
     font-size: 2rem;
 }
 #PokemonId {
@@ -87,14 +92,14 @@
     height: 22rem;
     opacity: 0.3;
     position: absolute;
-    top: -20%;
-    left: 36%;
+    top: -15%;
+    left: 26%;
     z-index: 0;
 }
 
 @media only screen and (min-width: 768px) {
     /* For tablet: */
-    .type {
+    /* .type {
         color: #fff;
         border-radius: 0.8rem;
         position: relative;
@@ -102,13 +107,14 @@
         padding: 0.8rem 0.8rem 0 0.8rem;
     }
     #Pokemon {
-        width: 200%;
+        width: 250%;
         position: relative;
-        left: -34%;
+        left: -100%;
         z-index: 1;
     }
     #PokemonName {
-        font-size: 0.6rem;
+        height: 2em;
+        font-size: 0.5rem;
     }
     #PokemonId {
         color: rgba(0, 0, 0, 0.3);
@@ -121,14 +127,53 @@
     #PokemonTypes {
         background-color: rgba(255, 255, 255, 0.3);
         border-radius: 1rem;
-        font-size: 0.25rem;
+        font-size: 0.1rem;
     }
     #PokemonTypeCardIcon {
         height: 6rem;
         opacity: 0.3;
         position: absolute;
-        top: 0%;
+        top: 4%;
         left: 30%;
+        z-index: 0;
+    } */
+    .type {
+        color: #fff;
+        border-radius: 1rem;
+        height: 5rem;
+        position: relative;
+        overflow: hidden;
+        padding: 1rem 1rem 0 1rem;
+    }
+    #Pokemon {
+        width: 280%;
+        left: -70%;
+        position: relative;
+        z-index: 1;
+    }
+    #PokemonName {
+        height: 2em;
+        font-size: 0.6rem;
+    }
+    #PokemonId {
+        color: rgba(0, 0, 0, 0.3);
+        line-height: 0.1;
+        font-size: 0.8rem;
+    }
+    #ColPokemonTypes {
+        padding-bottom: 0.2rem;
+    }
+    #PokemonTypes {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 2rem;
+        font-size: 0.1rem;
+    }
+    #PokemonTypeCardIcon {
+        height: 6rem;
+        opacity: 0.3;
+        position: absolute;
+        top: 10%;
+        left: 28%;
         z-index: 0;
     }
 }
@@ -137,22 +182,26 @@
     .type {
         color: #fff;
         border-radius: 1rem;
+        height: 10rem;
         position: relative;
         overflow: hidden;
         padding: 1rem 1rem 0 1rem;
     }
     #Pokemon {
-        width: 180%;
-        left: -36%;
+        width: 150%;
+        left: -20%;
         position: relative;
         z-index: 1;
     }
     #PokemonName {
-        font-size: 1.4rem;
+        height: 2em;
+        font-size: 1.2rem;
+        position: relative;
+        z-index: 2;
     }
     #PokemonId {
         color: rgba(0, 0, 0, 0.3);
-        line-height: 0;
+        line-height: 0.4;
         font-size: 1.2rem;
     }
     #ColPokemonTypes {
@@ -164,11 +213,11 @@
         font-size: 0.8rem;
     }
     #PokemonTypeCardIcon {
-        height: 12rem;
+        height: 14rem;
         opacity: 0.3;
         position: absolute;
-        top: 6%;
-        left: 20%;
+        top: 0%;
+        left: 16%;
         z-index: 0;
     }
 }

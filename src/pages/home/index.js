@@ -1,49 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import {
     Container,
     Col,
-    Row
+    Row,
+    Button
 } from 'reactstrap'
+import ReactPaginate from 'react-paginate';
+
 import Card from '../../components/card';
 import LoadingPage from '../loading';
 import Navbar from '../../components/NavBar/index';
 
 import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { fetchPokemons, fetchPokemonDetail } from '../../redux/actions'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPokemons } from '../../redux/actions'
 
 const Home = () => {
     const dispatch = useDispatch()
     const pokemons = useSelector(state => state.pokemons)
-    const [pokemonFilter, setPokemonFilter] = useState([])
-    const [filterKeyword, setFilterKeywords] = useState("")
+    const [offset, setOffset] = useState(0)
+    
+    const componentRef = useRef(true)
     
     useEffect(() => {
         dispatch(fetchPokemons())
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    useEffect(() => {
-        if(pokemons.isLoading === true) {
-            pokemons.pokemonLists.map((pokemon, index) => 
-                dispatch(fetchPokemonDetail(index + 1))
-            )
-            
+        
+        return () => {
+            componentRef.current = false
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pokemons.isLoading])
+    }, []) // eslint-disable-next-line react-hooks/exhaustive-deps
 
-    useEffect(() => {
-        setPokemonFilter(pokemons.pokemons.filter(pokemon => {
-            return pokemon.name.toLowerCase().includes( filterKeyword.toLowerCase() )
-        }))
-    }, [filterKeyword, pokemons])
+    // useEffect(() => {
+    //     setPokemonFilter(pokemons.pokemons.filter(pokemon => {
+    //         return pokemon.name.toLowerCase().includes( filterKeyword.toLowerCase() )
+    //     }))
+    // }, [filterKeyword, pokemons])
+    const handlePageClick = (currentPage) => {
+        let selectedPage = currentPage.selected
 
-    
-    const handleFilter = (value) => {
-        setFilterKeywords(value)
+        if (componentRef.current)
+            setOffset(selectedPage*30)
+            
     }
+    const currentPokemons = useMemo(() => pokemons?.pokemonLists?.results?.slice(offset, offset+30), [pokemons, offset])
 
+    console.log({offset, pokemons, currentPokemons})
     return (
         <>
             {pokemons.isLoading ? (
@@ -53,18 +54,39 @@ const Home = () => {
                     <Navbar 
                         title="Pokémon"
                         backgroundColor="#FF6961"
-                        handleFilter={handleFilter}
                     />
                     <Container className="pt-3">
                         <Row>
                             <h1 className="fw-bold">Pokédex</h1>
                         </Row>
-                        
                         <Row>
-                            {pokemonFilter.map((pokemon, index) => 
-                                <Col md="2" key={index}><Card pokemon={pokemon} type={pokemon.types[0].type.name} /></Col>
+                            {currentPokemons.map((pokemon, index) => 
+                                <Col md="2" key={pokemon.url}><Card pokemons={pokemons.pokemonLists.results} url={pokemon.url} /></Col>
                             )}
                         </Row>
+                        <Row>
+                            <ReactPaginate
+                                previousLabel={'previous'}
+                                nextLabel={'next'}
+                                breakLabel={'...'}
+                                breakClassName={"page-item disabled"}
+                                breakLinkClassName={"page-link"}
+                                pageCount={1118/30}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                pageCount={pokemons.pokemonLists.count/30}
+                                onPageChange={handlePageClick}
+                                containerClassName={"pagination"}
+                                pageClassName={"page-item"}
+                                pageLinkClassName={"page-link"}
+                                previousClassName={"page-item"}
+                                previousLinkClassName={"page-link"}
+                                nextClassName={"page-item"}
+                                nextLinkClassName={"page-link"}
+                                activeClassName={'active'}
+                            />
+                        </Row>
+                        <h1>{offset}</h1>
                     </Container>
                 </>
                 )
@@ -75,17 +97,7 @@ const Home = () => {
 
 Home.propTypes = {
     fetchPokemons: PropTypes.func.isRequired,
-    fetchPokemonDetail: PropTypes.func.isRequired,
     pokemons: PropTypes.array.isRequired,
 }
 
-const mapStateToProps = state => ({
-    pokemons: state.pokemons.pokemons
-})
-
-const mapDispatchToProp = dispatch => ({
-    fetchPokemons: () => dispatch(fetchPokemons()),
-    fetchPokemonDetail: () => dispatch(fetchPokemonDetail())
-})
-
-export default connect(mapStateToProps, mapDispatchToProp)(Home)
+export default Home
