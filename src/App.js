@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import PokemonDetail from './pages/pokemondetail';
 import Home from './pages/home';
 import Moves from './pages/moves';
 import Forms from './pages/forms';
@@ -19,6 +20,7 @@ function App() {
               <Route path="/forms"><Forms /></Route>
               <Route path="/items"><Items /></Route>
               <Route path="/typecharts"><TypeCharts /></Route>
+              <Route path="/pokemon/:pokemonName"><PokemonDetail /></Route>
             </Switch>
           </Router>
         </div>

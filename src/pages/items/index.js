@@ -8,7 +8,6 @@ import Card from '../../components/card';
 import LoadingPage from '../loading';
 import Navbar from '../../components/NavBar/index';
 
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPokemons } from '../../redux/actions'
 
@@ -65,10 +64,5 @@ const Items = () => {
     )
 }
 
-Items.propTypes = {
-    fetchPokemons: PropTypes.func.isRequired,
-    fetchPokemonDetail: PropTypes.func.isRequired,
-    pokemons: PropTypes.array.isRequired,
-}
 
 export default Items

@@ -32,8 +32,11 @@ const Card = (props) => {
     const [iconType, setIconType] = useState(null)
 
     useEffect(() => {
+        let isMount = true
         axios.get(props.url)
-        .then(res => setPokemon(res.data))
+        .then(res => isMount && setPokemon(res.data))
+
+        return () => isMount = false
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -105,37 +108,35 @@ const Card = (props) => {
     if (!pokemon) return null
     
     return (
-        <>
-            <div id={pokemon?.types[0]?.type?.name ? pokemon.types[0].type.name : `unknown`} className="type my-2">
+        <div id={pokemon?.types[0]?.type?.name ? pokemon.types[0].type.name : `unknown`} className="type my-2">
+            <Row>
+                <span className="d-flex justify-content-end fw-bold" id="PokemonId">{`#${pokemon.id}`}</span>
+            </Row>
+            <Row className="d-flex align-items-end">
                 <Row>
-                    <span className="d-flex justify-content-end fw-bold" id="PokemonId">{`#${pokemon.id}`}</span>
+                    <span className="fw-bold" id="PokemonName">{pokemon.name.charAt(0).toUpperCase() + pokemon.name.substr(1).toLowerCase()}</span>
                 </Row>
-                <Row className="d-flex align-items-end">
-                    <Row>
-                        <span className="fw-bold" id="PokemonName">{pokemon.name}</span>
-                    </Row>
-                    <Col id="ColPokemonTypes">
-                        {pokemon.types.map(pokemonType =>
-                            <span className="d-block px-2 mt-2 text-center" id="PokemonTypes" key={pokemonType.slot}>
-                                {pokemonType.type.name}
-                            </span>
-                        )}
-                        {!pokemon.types[0] ? (
-                            <span className="d-block px-2 mt-2 text-center" id="PokemonTypes">
-                                type unknown
-                            </span>
-                        ) : (
-                            null
-                        )}
-                    </Col>
+                <Col id="ColPokemonTypes">
+                    {pokemon.types.map(pokemonType =>
+                        <span className="d-block px-2 mt-2 text-center" id="PokemonTypes" key={pokemonType.slot}>
+                            {pokemonType.type.name}
+                        </span>
+                    )}
+                    {!pokemon.types[0] ? (
+                        <span className="d-block px-2 mt-2 text-center" id="PokemonTypes">
+                            type unknown
+                        </span>
+                    ) : (
+                        null
+                    )}
+                </Col>
 
-                    <Col>
-                        <span><img id="Pokemon" src={pokemon.sprites.front_default || shilotte} alt="Pokemon" /></span>
-                    </Col>
-                </Row>
-                <img id="PokemonTypeCardIcon" src={iconType} alt="Pokemon Type Icon" />
-            </div>
-        </>
+                <Col>
+                    <span><img id="Pokemon" src={pokemon.sprites.front_default || shilotte} alt="Pokemon" /></span>
+                </Col>
+            </Row>
+            <img id="PokemonTypeCardIcon" src={iconType} alt="Pokemon Type Icon" />
+        </div>
     )
 }
 

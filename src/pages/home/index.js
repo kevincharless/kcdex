@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
     Container,
     Col,
@@ -10,43 +10,42 @@ import Card from '../../components/card';
 import LoadingPage from '../loading';
 import Navbar from '../../components/NavBar/index';
 
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPokemons } from '../../redux/actions'
+import { Link } from 'react-router-dom';
 
 const Home = () => {
-    const componentRef = useRef(true)
     const dispatch = useDispatch()
-    
+
     const pokemons = useSelector(state => state.pokemons)
     const [offset, setOffset] = useState(0)
     const [pokemonFilter, setPokemonFilter] = useState([])
-    const [filterKeyword, setFilterKeywords] = useState("")
+    const [keyword, setKeywords] = useState("")
 
-    const currentPokemons = useMemo(() => pokemons?.pokemonLists?.results?.slice(offset, offset+30), [pokemons, offset])
-    const currentPokemonsFilter = useMemo(() => pokemonFilter?.slice(offset, offset+30), [offset, pokemonFilter])
     const pokemonCounts = pokemons.pokemonLists.count
+    const pokemonLists = pokemons.pokemonLists.results
+
+    const currentPokemons = useMemo(() => pokemonLists?.slice(offset, offset+30), [pokemonLists, offset])
+    const currentPokemonsFilter = useMemo(() => pokemonFilter?.slice(offset, offset+30), [offset, pokemonFilter])
     
     useEffect(() => {
         dispatch(fetchPokemons())
-        return () => {
-            componentRef.current = false
-        }
-    }, [dispatch]) // eslint-disable-next-line react-hooks/exhaustive-deps
-    
-    const handleFilter = (value) => {
-        if (componentRef.current) {
-            setFilterKeywords(value)
-            setPokemonFilter(pokemons?.pokemonLists?.results?.filter(pokemon => {
-                return pokemon.name.toLowerCase().includes( filterKeyword.toLowerCase() )
-            }))
-        }
-    }
+        
+    }, []) // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        setPokemonFilter(pokemonLists?.filter(pokemon => {
+            return pokemon.name.toUpperCase().includes( keyword.toUpperCase() )
+        }))
+    }, [keyword])
 
     const handlePageClick = (currentPage) => {
         let selectedPage = currentPage.selected
-        if (componentRef.current)
-            setOffset(selectedPage*30)
+        setOffset(selectedPage*30)
+    }
+
+    const handleOnChange = e => {
+        setKeywords(e.target.value)
     }
 
     return (
@@ -58,19 +57,27 @@ const Home = () => {
                     <Navbar 
                         title="Pokémon"
                         backgroundColor="#FF6961"
-                        handleFilter={handleFilter}
+                        handleOnChange={handleOnChange}
                     />
                     <Container className="pt-3">
                         <Row>
                             <h1 className="fw-bold">Pokédex</h1>
                         </Row>
                         <Row>
-                            {filterKeyword ? (
-                                currentPokemonsFilter.map((pokemon) => 
-                                <Col md="2" key={pokemon.url}><Card pokemons={pokemons.pokemonLists.results} url={pokemon.url} /></Col>
+                            {keyword ? (
+                                currentPokemonsFilter?.map((pokemon) => 
+                                <Col md="2" key={pokemon.url}>
+                                    <Link to={`/pokemon/${pokemon.name}`} style={{ textDecoration: "none" }}>
+                                        <Card pokemons={pokemonLists} url={pokemon.url} />
+                                    </Link>
+                                </Col>
                             )) : (
-                                currentPokemons.map((pokemon) => 
-                                <Col md="2" key={pokemon.url}><Card pokemons={pokemons.pokemonLists.results} url={pokemon.url} /></Col>
+                                currentPokemons?.map((pokemon) => 
+                                <Col md="2" key={pokemon.url}>
+                                    <Link to={`/pokemon/${pokemon.name}`} style={{ textDecoration: "none" }}>
+                                        <Card pokemons={pokemonLists} url={pokemon.url} />
+                                    </Link>
+                                </Col>
                             ))}
                         </Row>
                         <Row>
@@ -82,7 +89,7 @@ const Home = () => {
                                 breakLinkClassName={"page-link"}
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={5}
-                                pageCount={pokemonCounts/30}
+                                pageCount={keyword ? pokemonFilter?.length/30 : pokemonCounts/30}
                                 onPageChange={handlePageClick}
                                 containerClassName={"pagination"}
                                 pageClassName={"page-item"}
@@ -101,10 +108,6 @@ const Home = () => {
             }
         </>
     )
-}
-
-Home.propTypes = {
-    fetchPokemons: PropTypes.func.isRequired
 }
 
 export default Home

@@ -10,7 +10,7 @@ import Navbar from '../../components/NavBar/index';
 
 import PropTypes from 'prop-types';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { fetchPokemons, fetchPokemonDetail } from '../../redux/actions'
+import { fetchPokemons,  } from '../../redux/actions'
 
 const Moves = () => {
     const dispatch = useDispatch()
@@ -23,15 +23,7 @@ const Moves = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useEffect(() => {
-        if(pokemons.isLoading === true) {
-            pokemons.pokemonLists.map((pokemon, index) => 
-                dispatch(fetchPokemonDetail(index + 1))
-            )
-            
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pokemons.isLoading])
+
 
     useEffect(() => {
         setPokemonFilter(pokemons.pokemons.filter(pokemon => {
@@ -85,7 +77,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProp = dispatch => ({
     fetchPokemons: () => dispatch(fetchPokemons()),
-    fetchPokemonDetail: () => dispatch(fetchPokemonDetail())
 })
 
 export default connect(mapStateToProps, mapDispatchToProp)(Moves)

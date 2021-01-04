@@ -1,8 +1,9 @@
-import { FETCH_POKEMONS, FETCH_POKEMONDETAIL, FETCH_LOADING, FETCH_LOADED } from '../actions/types';
+import { FETCH_POKEMONS, FETCH_LOADING, FETCH_LOADED } from '../actions/types';
 
 const initialState = {
     pokemonLists:[],
-    isLoading: true
+    isLoading: true,
+    isMount: true
 
 }
 
@@ -23,11 +24,6 @@ export default function pokemonReducer(state = initialState, action) {
             return {
                 ...state,
                 pokemonLists: action.payload,
-            }
-        case FETCH_POKEMONDETAIL:
-            return {
-                ...state,
-                pokemons: [...state.pokemons, action.payload],
             }
         default: 
             return state
