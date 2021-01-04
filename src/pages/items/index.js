@@ -32,9 +32,9 @@ const Items = () => {
     // }, [filterKeyword, pokemons])
 
     
-    const handleFilter = (value) => {
-        // setFilterKeywords(value)
-    }
+    // const handleFilter = (value) => {
+    //     // setFilterKeywords(value)
+    // }
     
 
     return (

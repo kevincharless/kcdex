@@ -1,6 +1,5 @@
 import React from 'react'
 import LogoPokemon from '../../assets/images/logopokemon.svg';
-import { Container } from 'reactstrap'
 
 const index = () => {
     return (

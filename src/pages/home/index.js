@@ -3,7 +3,6 @@ import {
     Container,
     Col,
     Row,
-    Button
 } from 'reactstrap'
 import ReactPaginate from 'react-paginate';
 
@@ -16,35 +15,40 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPokemons } from '../../redux/actions'
 
 const Home = () => {
+    const componentRef = useRef(true)
     const dispatch = useDispatch()
+    
     const pokemons = useSelector(state => state.pokemons)
     const [offset, setOffset] = useState(0)
-    
-    const componentRef = useRef(true)
+    const [pokemonFilter, setPokemonFilter] = useState([])
+    const [filterKeyword, setFilterKeywords] = useState("")
+
+    const currentPokemons = useMemo(() => pokemons?.pokemonLists?.results?.slice(offset, offset+30), [pokemons, offset])
+    const currentPokemonsFilter = useMemo(() => pokemonFilter?.slice(offset, offset+30), [offset, pokemonFilter])
+    const pokemonCounts = pokemons.pokemonLists.count
     
     useEffect(() => {
         dispatch(fetchPokemons())
-        
         return () => {
             componentRef.current = false
         }
-    }, []) // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]) // eslint-disable-next-line react-hooks/exhaustive-deps
+    
+    const handleFilter = (value) => {
+        if (componentRef.current) {
+            setFilterKeywords(value)
+            setPokemonFilter(pokemons?.pokemonLists?.results?.filter(pokemon => {
+                return pokemon.name.toLowerCase().includes( filterKeyword.toLowerCase() )
+            }))
+        }
+    }
 
-    // useEffect(() => {
-    //     setPokemonFilter(pokemons.pokemons.filter(pokemon => {
-    //         return pokemon.name.toLowerCase().includes( filterKeyword.toLowerCase() )
-    //     }))
-    // }, [filterKeyword, pokemons])
     const handlePageClick = (currentPage) => {
         let selectedPage = currentPage.selected
-
         if (componentRef.current)
             setOffset(selectedPage*30)
-            
     }
-    const currentPokemons = useMemo(() => pokemons?.pokemonLists?.results?.slice(offset, offset+30), [pokemons, offset])
 
-    console.log({offset, pokemons, currentPokemons})
     return (
         <>
             {pokemons.isLoading ? (
@@ -54,15 +58,20 @@ const Home = () => {
                     <Navbar 
                         title="Pokémon"
                         backgroundColor="#FF6961"
+                        handleFilter={handleFilter}
                     />
                     <Container className="pt-3">
                         <Row>
                             <h1 className="fw-bold">Pokédex</h1>
                         </Row>
                         <Row>
-                            {currentPokemons.map((pokemon, index) => 
+                            {filterKeyword ? (
+                                currentPokemonsFilter.map((pokemon) => 
                                 <Col md="2" key={pokemon.url}><Card pokemons={pokemons.pokemonLists.results} url={pokemon.url} /></Col>
-                            )}
+                            )) : (
+                                currentPokemons.map((pokemon) => 
+                                <Col md="2" key={pokemon.url}><Card pokemons={pokemons.pokemonLists.results} url={pokemon.url} /></Col>
+                            ))}
                         </Row>
                         <Row>
                             <ReactPaginate
@@ -71,10 +80,9 @@ const Home = () => {
                                 breakLabel={'...'}
                                 breakClassName={"page-item disabled"}
                                 breakLinkClassName={"page-link"}
-                                pageCount={1118/30}
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={5}
-                                pageCount={pokemons.pokemonLists.count/30}
+                                pageCount={pokemonCounts/30}
                                 onPageChange={handlePageClick}
                                 containerClassName={"pagination"}
                                 pageClassName={"page-item"}
@@ -96,8 +104,7 @@ const Home = () => {
 }
 
 Home.propTypes = {
-    fetchPokemons: PropTypes.func.isRequired,
-    pokemons: PropTypes.array.isRequired,
+    fetchPokemons: PropTypes.func.isRequired
 }
 
 export default Home

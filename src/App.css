@@ -99,44 +99,6 @@
 
 @media only screen and (min-width: 768px) {
     /* For tablet: */
-    /* .type {
-        color: #fff;
-        border-radius: 0.8rem;
-        position: relative;
-        overflow: hidden;
-        padding: 0.8rem 0.8rem 0 0.8rem;
-    }
-    #Pokemon {
-        width: 250%;
-        position: relative;
-        left: -100%;
-        z-index: 1;
-    }
-    #PokemonName {
-        height: 2em;
-        font-size: 0.5rem;
-    }
-    #PokemonId {
-        color: rgba(0, 0, 0, 0.3);
-        line-height: 0;
-        font-size: 0.5rem;
-    }
-    #ColPokemonTypes {
-        padding-bottom: 1rem;
-    }
-    #PokemonTypes {
-        background-color: rgba(255, 255, 255, 0.3);
-        border-radius: 1rem;
-        font-size: 0.1rem;
-    }
-    #PokemonTypeCardIcon {
-        height: 6rem;
-        opacity: 0.3;
-        position: absolute;
-        top: 4%;
-        left: 30%;
-        z-index: 0;
-    } */
     .type {
         color: #fff;
         border-radius: 1rem;
