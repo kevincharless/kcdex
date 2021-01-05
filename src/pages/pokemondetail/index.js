@@ -57,9 +57,9 @@ const PokemonDetail = () => {
                     </Col>
                 </Row>
             </Row>
-            <Navbar className="d-flex align-items-end justify-content-center p-3" id="NavbarPokemonDetail" expand="md">
-                <CardDetail />
-            </Navbar>
+            <div className="py-3" id="NavbarPokemonDetail">
+                <CardDetail pokemon={pokemon} />
+            </div>
             
         </div>
     )
