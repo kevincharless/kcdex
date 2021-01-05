@@ -1,10 +1,8 @@
 .type {
     color: #fff;
     border-radius: 1.2rem;
-    height: 15rem;
-    position: relative;
+    border: none;
     overflow: hidden;
-    padding: 1.8rem 1.8rem 0 1.8rem;
 }
 
 #normal {
@@ -66,22 +64,15 @@
 }
 
 #Pokemon {
-    width: 100%;
-    left: 10%;
-    position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 #PokemonName {
-    height: 3em;
-    font-size: 2rem;
+    height: 2rem;
+    z-index: 3;
 }
 #PokemonId {
     color: rgba(0, 0, 0, 0.3);
     line-height: 0;
-    font-size: 1.8rem;
-}
-#ColPokemonTypes {
-    padding-bottom: 1.8rem;
 }
 #PokemonTypes {
     background-color: rgba(255, 255, 255, 0.3);
@@ -90,12 +81,12 @@
     font-size: 1.6rem;
 }
 #PokemonTypeCardIcon {
-    height: 22rem;
+    height: 15rem;
     opacity: 0.3;
     position: absolute;
-    top: -15%;
-    left: 26%;
-    z-index: 0;
+    top: 15%;
+    left: 35%;
+    z-index: 1;
 }
 
 @media only screen and (min-width: 768px) {
@@ -103,28 +94,7 @@
     .type {
         color: #fff;
         border-radius: 1rem;
-        height: 5rem;
-        position: relative;
-        overflow: hidden;
-        padding: 1rem 1rem 0 1rem;
-    }
-    #Pokemon {
-        width: 280%;
-        left: -70%;
-        position: relative;
-        z-index: 1;
-    }
-    #PokemonName {
-        height: 2em;
-        font-size: 0.6rem;
-    }
-    #PokemonId {
-        color: rgba(0, 0, 0, 0.3);
-        line-height: 0.1;
-        font-size: 0.8rem;
-    }
-    #ColPokemonTypes {
-        padding-bottom: 0.2rem;
+        border: none;
     }
     #PokemonTypes {
         background-color: rgba(0, 0, 0, 0.1);
@@ -133,12 +103,12 @@
         font-size: 0.1rem;
     }
     #PokemonTypeCardIcon {
-        height: 6rem;
+        height: 10rem;
         opacity: 0.3;
         position: absolute;
-        top: 10%;
-        left: 28%;
-        z-index: 0;
+        top: 0%;
+        left: 25%;
+        z-index: 1;
     }
 }
 @media only screen and (min-width: 1281px) {
@@ -146,44 +116,21 @@
     .type {
         color: #fff;
         border-radius: 1rem;
-        height: 10rem;
-        position: relative;
-        overflow: hidden;
-        padding: 1rem 1rem 0 1rem;
-    }
-    #Pokemon {
-        width: 150%;
-        left: -20%;
-        position: relative;
-        z-index: 1;
-    }
-    #PokemonName {
-        height: 1.2em;
-        font-size: 1.1rem;
-        position: relative;
-        z-index: 2;
-    }
-    #PokemonId {
-        color: rgba(0, 0, 0, 0.3);
-        line-height: 0.4;
-        font-size: 1.2rem;
-    }
-    #ColPokemonTypes {
-        padding-bottom: 0rem;
+        border: none;
     }
     #PokemonTypes {
         background-color: rgba(0, 0, 0, 0.1);
         border-radius: 2rem;
         color: #fff;
-        font-size: 0.8rem;
+        font-size: 0.6rem;
     }
     #PokemonTypeCardIcon {
-        height: 14rem;
+        height: 10rem;
         opacity: 0.3;
         position: absolute;
-        top: 0%;
-        left: 16%;
-        z-index: 0;
+        top: 5%;
+        left: 30%;
+        z-index: 1;
     }
 }
 

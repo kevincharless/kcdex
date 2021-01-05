@@ -101,7 +101,6 @@ const Home = () => {
                                 activeClassName={'active'}
                             />
                         </Row>
-                        <h1>{offset}</h1>
                     </Container>
                 </>
                 )

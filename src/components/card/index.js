@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import {
     Col,
-    Row
+    Row,
+    Card as Cardrs, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button
 } from 'reactstrap';
 import axios from '../../axios';
 
@@ -108,34 +110,37 @@ const Card = (props) => {
     if (!pokemon) return null
     
     return (
-        <div id={pokemon?.types[0]?.type?.name ? pokemon.types[0].type.name : `unknown`} className="type my-2">
-            <Row>
-                <span className="d-flex justify-content-end fw-bold" id="PokemonId">{`#${pokemon.id}`}</span>
-            </Row>
-            <Row className="d-flex align-items-end">
-                <Row>
-                    <span className="fw-bold" id="PokemonName">{pokemon.name.charAt(0).toUpperCase() + pokemon.name.substr(1).toLowerCase()}</span>
-                </Row>
-                <Col id="ColPokemonTypes">
-                    {pokemon.types.map(pokemonType =>
-                        <span className="d-block px-2 mt-2 text-center" id="PokemonTypes" key={pokemonType.slot}>
-                            {pokemonType.type.name}
-                        </span>
-                    )}
-                    {!pokemon.types[0] ? (
-                        <span className="d-block px-2 mt-2 text-center" id="PokemonTypes">
-                            type unknown
-                        </span>
-                    ) : (
-                        null
-                    )}
-                </Col>
-
-                <Col>
-                    <span><img id="Pokemon" src={pokemon.sprites.front_default || shilotte} alt="Pokemon" /></span>
-                </Col>
-            </Row>
-            <img id="PokemonTypeCardIcon" src={iconType} alt="Pokemon Type Icon" />
+        <div>
+            <Cardrs className="type my-2 pt-2" id={pokemon?.types[0]?.type?.name ? pokemon.types[0].type.name : `unknown`}>
+                <CardBody className="p-3">
+                    <CardSubtitle id="PokemonId" tag="h6" className="d-flex justify-content-end fw-bold">{`#${pokemon.id}`}</CardSubtitle>
+                    <CardTitle id="PokemonName" className="mb-0 fw-bold" tag="h6">
+                        {pokemon.name.charAt(0).toUpperCase() + pokemon.name.substr(1).toLowerCase()}
+                    </CardTitle>
+                    <Row>
+                        <Col xsm="5" className="d-flex align-items-end pe-0">
+                            <CardText>
+                                {pokemon.types.map(pokemonType =>
+                                    <span className="d-block px-3 mt-2 text-center" id="PokemonTypes" key={pokemonType.slot}>
+                                        {pokemonType.type.name}
+                                    </span>
+                                )}
+                                {!pokemon.types[0] ? (
+                                    <span className="d-block px-3 mt-2 text-center" id="PokemonTypes">
+                                        type unknown
+                                    </span>
+                                ) : (
+                                    null
+                                )}
+                            </CardText>
+                        </Col>
+                        <Col xsm="7" className="d-flex justify-content-end ps-0">
+                            <CardImg id="Pokemon" className="w-100" src={pokemon.sprites.front_default || shilotte} alt="Pokemon" />
+                            <CardImg className="w-100" id="PokemonTypeCardIcon" src={iconType} alt="Pokemon Type Icon" />
+                        </Col>
+                    </Row>
+                </CardBody>
+            </Cardrs>
         </div>
     )
 }
