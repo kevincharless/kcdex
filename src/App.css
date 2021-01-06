@@ -213,3 +213,16 @@ z-index: 0;
     left: 88%;
 }
 }
+
+#PokemonNavbar {
+    color: #000;
+    text-decoration: none;
+}
+#PokemonNavbar .active {
+    color: #FF6961;
+}
+#PokemonNavbar #PokemonNavbarDiv {
+    height: 0.25rem;
+    width: 100%;
+    background-color: #FF6961;
+}

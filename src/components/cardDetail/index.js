@@ -15,7 +15,7 @@ const CardDetail = (props) => {
     }, [])
     
     return (
-        <Container>
+        <Container className="py-5">
             <Row>
                 <Col xs="6"><h3 className="fw-bold">Pokédex data</h3></Col>
                 <Col xs="6"><h3 className="fw-bold">Training</h3></Col>
@@ -77,8 +77,8 @@ const CardDetail = (props) => {
                     <br />
                     <h3 className="fw-bold invisible">Breeding</h3>
                     <span className="d-block">{pokemonSpecies?.hatch_counter}</span>
-                    {pokemonSpecies?.egg_groups.map(eggGroup => 
-                        <span className="d-block">{eggGroup.name.charAt(0).toUpperCase() + eggGroup.name.slice(1)}</span>
+                    {pokemonSpecies?.egg_groups.map((eggGroup, index) => 
+                        <span className="d-block" key={index}>{eggGroup.name.charAt(0).toUpperCase() + eggGroup.name.slice(1)}</span>
                     )}
                 </Col>
             </Row>

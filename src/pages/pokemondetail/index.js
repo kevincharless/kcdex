@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {
     Col,
-    Navbar,
     Row
 } from 'reactstrap';
 import { useParams } from 'react-router-dom';
-
-import { ReactComponent as LogoPokemon } from '../../assets/images/logopokemon.svg'
-import CardDetail from '../../components/cardDetail';
 import axios from 'axios';
 
+import CardDetail from '../../components/cardDetail';
+import CardNavbar from '../../components/cardNavbar';
+
+import { ReactComponent as LogoPokemon } from '../../assets/images/logopokemon.svg'
 import shilotte from '../../assets/images/shilotte.svg'
 
 const PokemonDetail = () => {
@@ -58,6 +58,7 @@ const PokemonDetail = () => {
                 </Row>
             </Row>
             <div className="py-3" id="NavbarPokemonDetail">
+                <CardNavbar pokemonName={pokemonName.toLowerCase()} />
                 <CardDetail pokemon={pokemon} />
             </div>
             

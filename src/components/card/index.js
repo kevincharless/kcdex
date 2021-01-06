@@ -3,7 +3,7 @@ import {
     Col,
     Row,
     Card as Cardrs, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
+    CardTitle, CardSubtitle
 } from 'reactstrap';
 import axios from '../../axios';
 
