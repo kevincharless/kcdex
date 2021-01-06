@@ -3,13 +3,98 @@ import {
     Col,
     Row
 } from 'reactstrap';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
 
 import { ReactComponent as LogoPokemon } from '../../assets/images/logopokemon.svg'
+
+import normal from '../../assets/images/normal.svg'
+import fire from '../../assets/images/fire.svg'
+import fighting from '../../assets/images/fighting.svg'
+import water from '../../assets/images/water.svg'
+import flying from '../../assets/images/flying.svg'
+import grass from '../../assets/images/grass.svg'
+import poison from '../../assets/images/poison.svg'
+import electric from '../../assets/images/electric.svg'
+import ground from '../../assets/images/ground.svg'
+import psychic from '../../assets/images/psychic.svg'
+import rock from '../../assets/images/rock.svg'
+import ice from '../../assets/images/ice.svg'
+import bug from '../../assets/images/bug.svg'
+import dragon from '../../assets/images/dragon.svg'
+import ghost from '../../assets/images/ghost.svg'
+import dark from '../../assets/images/dark.svg'
+import steel from '../../assets/images/steel.svg'
+import fairy from '../../assets/images/fairy.svg'
+import unknown from '../../assets/images/unknown.svg'
+
 import shilotte from '../../assets/images/shilotte.svg'
 
 const CardDetailHero = (props) => {
+    const [iconType, setIconType] = useState(null)
+
+    useEffect(() => {
+        if (props.pokemon) {
+            switch (props.pokemon?.types[0]?.type?.name) {
+                case 'normal':
+                    setIconType(normal)
+                    break
+                case 'fire':
+                    setIconType(fire)
+                    break
+                case 'fighting':
+                    setIconType(fighting)
+                        break
+                case 'water':
+                    setIconType(water)
+                    break
+                case 'flying':
+                    setIconType(flying)
+                    break
+                case 'grass':
+                    setIconType(grass)
+                    break
+                case 'poison':
+                    setIconType(poison)
+                    break
+                case 'electric':
+                    setIconType(electric)
+                    break
+                case 'ground':
+                    setIconType(ground)
+                        break
+                case 'psychic':
+                    setIconType(psychic)
+                    break
+                case 'rock':
+                    setIconType(rock)
+                    break
+                case 'ice':
+                    setIconType(ice)
+                    break
+                case 'bug':
+                    setIconType(bug)
+                    break
+                case 'dragon':
+                    setIconType(dragon)
+                    break
+                case 'ghost':
+                    setIconType(ghost)
+                        break
+                case 'dark':
+                    setIconType(dark)
+                    break
+                case 'steel':
+                    setIconType(steel)
+                    break
+                case 'fairy':
+                    setIconType(fairy)
+                    break
+                default:
+                    setIconType(unknown)
+                    break
+            }
+        }
+        
+    }, [props.pokemon])
 
     if (!props.pokemon) return null
 
@@ -46,6 +131,7 @@ const CardDetailHero = (props) => {
                         <LogoPokemon id="LogoPokemonDetail"/>
                     </Col>
                 </Row>
+                <img className="w-100" id="PokemonDetailTypeIcon" src={iconType} alt="Pokemon Type Icon" />
             </Row>
         </div>
     )

@@ -14,6 +14,8 @@ const CardDetailAbout = (props) => {
         .then(res => setPokemonSpecies(res.data))
     }, [])
     
+    if(!props.pokemon) return null
+
     return (
         <Container className="py-5">
             <Row>

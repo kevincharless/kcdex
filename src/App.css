@@ -211,6 +211,15 @@ z-index: 1;
     z-index: 0;
 }
 
+#PokemonDetailTypeIcon {
+    height: 15rem;
+    opacity: 0.3;
+    position: absolute;
+    top: -5%;
+    left: 0;
+    z-index: 0;
+}
+
 @media only screen and (min-width: 768px) {
     /* For tablet: */
     #LogoPokemonDetail {
@@ -219,6 +228,14 @@ z-index: 1;
         position: absolute;
         top: -64%;
         left: 85%;
+        z-index: 0;
+    }
+    #PokemonDetailTypeIcon {
+        height: 15rem;
+        opacity: 0.3;
+        position: absolute;
+        top: -4%;
+        left: 0;
         z-index: 0;
     }
 }
@@ -230,6 +247,14 @@ z-index: 1;
         position: absolute;
         top: -60%;
         left: 89%;
+        z-index: 0;
+    }
+    #PokemonDetailTypeIcon {
+        height: 15rem;
+        opacity: 0.3;
+        position: absolute;
+        top: -4%;
+        left: 0;
         z-index: 0;
     }
 }
