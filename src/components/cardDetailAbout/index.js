@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 
-const CardDetail = (props) => {
+const CardDetailAbout = (props) => {
     const [pokemonSpecies, setPokemonSpecies] = useState()
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const CardDetail = (props) => {
     return (
         <Container className="py-5">
             <Row>
-                <Col xs="6"><h3 className="fw-bold">Pokédex data</h3></Col>
+                <Col xs="6"><h3 className="fw-bold">Pokémon Data</h3></Col>
                 <Col xs="6"><h3 className="fw-bold">Training</h3></Col>
             </Row>
             <Row>
@@ -86,4 +86,4 @@ const CardDetail = (props) => {
     )
 }
 
-export default CardDetail
+export default CardDetailAbout

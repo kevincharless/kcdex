@@ -183,35 +183,8 @@ position: relative;
 z-index: 1;
 }
 
-#PokemonDetailNav #LogoPokemon {
-height: 14rem;
-opacity: 0.1;
-position: absolute;
-top: -32%;
-left: 60%;
-z-index: 0;
-}
-@media only screen and (min-width: 768px) {
-/* For tablet: */
-
-}
-@media only screen and (min-width: 1281px) {
-/* For desktop: */
-#LogoPokemonDetail {
-    height: 14rem;
-    opacity: 0.1;
-    position: absolute;
-    top: -45%;
-    left: 89%;
-    z-index: 0;
-}
 #PokemonDetail {
-    height: 12rem;
-}
-#PokemonDetailNav #LogoPokemon {
-    top: -9%;
-    left: 88%;
-}
+    height: 100%;
 }
 
 #PokemonNavbar {
@@ -226,3 +199,38 @@ z-index: 0;
     width: 100%;
     background-color: #FF6961;
 }
+#PokemonNavbar #Text {
+    width: 10rem;
+}
+#LogoPokemonDetail {
+    height: 14rem;
+    opacity: 0.1;
+    position: absolute;
+    top: -68%;
+    left: 81%;
+    z-index: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    /* For tablet: */
+    #LogoPokemonDetail {
+        height: 14rem;
+        opacity: 0.1;
+        position: absolute;
+        top: -64%;
+        left: 85%;
+        z-index: 0;
+    }
+}
+@media only screen and (min-width: 1281px) {
+    /* For desktop: */
+    #LogoPokemonDetail {
+        height: 14rem;
+        opacity: 0.1;
+        position: absolute;
+        top: -60%;
+        left: 89%;
+        z-index: 0;
+    }
+}
+
