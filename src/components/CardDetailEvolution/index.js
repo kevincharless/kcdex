@@ -1,63 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
     Col,
     Container,
     Row
 } from 'reactstrap';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import Card from '../Card';
 import LoadingPage from '../../pages/Loading';
 
 const CardDetailEvolution = (props) => {
-    const [pokemonSpecies, setPokemonSpecies] = useState()
-    const [pokemonEvolutinChain, setPokemonEvolutionChain] = useState()
-    const [evolveFromSpecies, setEvolveFromSpecies] = useState()
-    const [evolveSpecies, setEvolveSpecies] = useState([])
-    const [evolveToSpecies, setEvolveToSpecies] = useState()
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }
 
-    useEffect(() => {
-        axios.get(props.pokemon.species.url)
-            .then(res => setPokemonSpecies(res.data))
-    }, [props.pokemon])
+    if(!props.pokemonSpecies) return <LoadingPage />
+    if(!props.pokemonEvolutinChain) return <LoadingPage />
+    if(!props.evolveFromSpecies) return <LoadingPage />
+    if(!props.evolveSpecies) return <LoadingPage />
 
-    useEffect(() => {
-        if(pokemonSpecies) {
-            axios.get(pokemonSpecies?.evolution_chain.url)
-                .then(res => setPokemonEvolutionChain(res.data))
-        }
-    }, [pokemonSpecies])
-
-    useEffect(() => {
-        if(pokemonEvolutinChain) {
-            axios.get(pokemonEvolutinChain?.chain.species.url)
-                .then(res => setEvolveFromSpecies(res.data))
-        }
-    }, [pokemonEvolutinChain])
-
-    useEffect(() => {
-        pokemonEvolutinChain?.chain.evolves_to.map(pokemon => 
-            axios.get(pokemon.species.url)
-                .then(res => setEvolveSpecies(prevPokemons => [...prevPokemons, {
-                    id: prevPokemons.length,
-                    value: res.data
-                }]))
-        )
-    }, [pokemonEvolutinChain])
-
-    useEffect(() => {
-        pokemonEvolutinChain?.chain.evolves_to.map(pokemon => 
-            pokemon.evolves_to.map(pokemonEvolvesTo => 
-                axios.get(pokemonEvolvesTo.species.url)
-                    .then(res => setEvolveToSpecies(res.data))
-            )
-        )
-    }, [pokemonEvolutinChain, evolveFromSpecies])
-    
-    if(!pokemonSpecies) return <LoadingPage />
-    if(!pokemonEvolutinChain) return <LoadingPage />
-    if(!evolveFromSpecies) return <LoadingPage />
-    if(!evolveSpecies) return <LoadingPage />
 
     return (
         <Container className="py-5">
@@ -66,37 +30,45 @@ const CardDetailEvolution = (props) => {
             </Row>
             <Row>
                 <Col className="fs-5" xs="6" md="2" style={{ color: "rgba(0, 0, 0, 0.5)" }}>
-                    <Card url={evolveFromSpecies.varieties[0].pokemon.url} />
+                    <Link onClick={scrollToTop} to={`/pokemon/${props.evolveFromSpecies.name}/`} style={{ textDecoration: "none" }}>
+                        <Card url={props.evolveFromSpecies.varieties[0].pokemon.url} />
+                    </Link>
                 </Col>
                 <Col className="fs-5" xs="6" md="2">
-                    {evolveSpecies.map((pokemonEvolve, index) => 
-                        <Card url={pokemonEvolve.value.varieties[0].pokemon.url} key={index} />
+                    {props.evolveSpecies.map((pokemonEvolve, index) => 
+                        <Link  to={`/pokemon/${pokemonEvolve.value.name}/`} style={{ textDecoration: "none" }} key={index}>
+                            <Card url={pokemonEvolve.value.varieties[0].pokemon.url} />
+                        </Link>
                     )}
                 </Col>
+                
                 <Col className="fs-5" xs="6" md="2">
-                    {evolveToSpecies ? (
-                        <Card url={evolveToSpecies.varieties[0].pokemon.url} />
+                    {props.evolveToSpecies ? (
+                        <Link to={`/pokemon/${props.evolveToSpecies.name}/`} style={{ textDecoration: "none" }}>
+                            <Card url={props.evolveToSpecies.varieties[0].pokemon.url} />
+                        </Link>
                     ) : (
                         null
                     )}
                 </Col>
             </Row>
             <Row>
-                <Col xs="12"><h3 className="fw-bold">Pokemon Varieties</h3></Col>
+                <Col xs="12"><h3 className="fw-bold pt-4">Pokemon Varieties</h3></Col>
             </Row>
             <Row>
-                {pokemonSpecies.varieties ? (
-                    pokemonSpecies.varieties.map((variety, index) => 
-                        !variety.is_default ? (
+                {props.pokemonSpecies.varieties[1] ? (
+                    props.pokemonSpecies.varieties.map((variety, index) => 
+                        variety.is_default === false ? (
                             <Col xs="6" md="2" key={index}>
-                                <Card url={variety.pokemon.url} />
+                                <Link onClick={scrollToTop} to={`/pokemon/${variety.pokemon.name}/`} style={{ textDecoration: "none" }}>
+                                    <Card url={variety.pokemon.url} />
+                                </Link>
                             </Col>
                         ) : (
                             null
-                        )
-                    )
-                ) : (
-                    <h6 style={{ color: "rgba(0, 0, 0, 0.5)" }}>This Pokemon doesn't have a variety</h6>
+                        ))
+                    ) : (
+                    <h6 style={{ color: "rgba(0, 0, 0, 0.5)" }}>This Pokemon doesn't have any variety</h6>
                 )}
             </Row>
         </Container>

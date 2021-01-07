@@ -1,8 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import PokemonDetailAbout from './pages/PokemonDetailAbout';
-import PokemonDetailBaseStats from './pages/PokemonDetailBaseStats';
-import PokemonDetailEvolution from './pages/PokemonDetailEvolution';
+import PokemonDetail from './pages/PokemonDetail';
+
 import Home from './pages/Home';
 import Moves from './pages/Moves';
 import Forms from './pages/Forms';
@@ -23,9 +22,7 @@ function App() {
               <Route path="/forms/"><Forms /></Route>
               <Route path="/items/"><Items /></Route>
               <Route path="/typecharts/"><TypeCharts /></Route>
-              <Route exact path="/pokemon/:pokemonName/"><PokemonDetailAbout /></Route>
-              <Route path="/pokemon/:pokemonName/basestats/"><PokemonDetailBaseStats /></Route>
-              <Route path="/pokemon/:pokemonName/evolution/"><PokemonDetailEvolution /></Route>
+              <Route exact path="/pokemon/:pokemonName/"><PokemonDetail /></Route>
             </Switch>
           </Router>
         </div>

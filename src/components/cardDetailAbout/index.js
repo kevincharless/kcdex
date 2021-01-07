@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
     Col,
     Container,
     Row
 } from 'reactstrap';
-import axios from 'axios';
+import _ from 'lodash'
+
+import { formatDashString } from '../../util/formatDashString';
+import { refactorObject } from '../../util/refactorObject';
 
 const CardDetailAbout = (props) => {
-    const [pokemonSpecies, setPokemonSpecies] = useState()
-
-    useEffect(() => {
-        axios.get(props.pokemon.species.url)
-        .then(res => setPokemonSpecies(res.data))
-    }, [props.pokemon.species.url])
-    
     if(!props.pokemon) return null
 
     return (
@@ -31,17 +27,17 @@ const CardDetailAbout = (props) => {
                     <span className="d-block">Abilities</span>
                 </Col>
                 <Col className="fs-5" xs="6" md="3">
-                    <span className="d-block">{`${pokemonSpecies?.color?.name.charAt(0).toUpperCase() + pokemonSpecies?.color?.name.slice(1)}`}</span>
+                    <span className="d-block">{`${formatDashString(props.pokemonSpecies?.color?.name)}`}</span>
                     <span className="d-block">{`${props.pokemon.height/10} m`}</span>
                     <span className="d-block">{`${props.pokemon.weight/10} kg`}</span>
                     <span className="d-block">
-                        {pokemonSpecies?.is_baby ? (
+                        {props.pokemonSpecies?.is_baby ? (
                             "Baby Pokemon"
                         ) : (
-                            pokemonSpecies?.is_legendary ? (
+                            props.pokemonSpecies?.is_legendary ? (
                                 "Legendary Pokemon"
                             ) : (
-                                pokemonSpecies?.is_mythical ? (
+                                props.pokemonSpecies?.is_mythical ? (
                                     "Mythical Pokemon"
                                 ) : (
                                     "Regular Pokemon"
@@ -51,9 +47,9 @@ const CardDetailAbout = (props) => {
                     </span>
                     {props.pokemon.abilities.map((ability, index) =>
                         ability.is_hidden ? (
-                            <span className="d-block" key={index}>{`${ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1).replace(/-/g, ' ')} (hidden ability)`}</span>
+                            <span className="d-block" key={index}>{`${formatDashString(ability.ability.name)} (hidden ability)`}</span>
                         ) : (
-                            <span className="d-block" key={index}>{ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1).replace(/-/g, ' ')}</span>
+                            <span className="d-block" key={index}>{formatDashString(ability.ability.name)}</span>
                         )
                     )}
     
@@ -71,16 +67,76 @@ const CardDetailAbout = (props) => {
                     <span className="d-block">Egg Groups</span>
                 </Col>
                 <Col className="fs-5" xs="6" md="3">
-                    <span className="d-block">{pokemonSpecies?.capture_rate}</span>
-                    <span className="d-block">{pokemonSpecies?.base_happiness}</span>
+                    <span className="d-block">{props.pokemonSpecies?.capture_rate}</span>
+                    <span className="d-block">{props.pokemonSpecies?.base_happiness}</span>
                     <span className="d-block">{props.pokemon.base_experience}</span>
-                    <span className="d-block">{pokemonSpecies?.growth_rate.name}</span>
+                    <span className="d-block">{props.pokemonSpecies?.growth_rate.name}</span>
 
                     <br />
                     <h3 className="fw-bold invisible">Breeding</h3>
-                    <span className="d-block">{pokemonSpecies?.hatch_counter}</span>
-                    {pokemonSpecies?.egg_groups.map((eggGroup, index) => 
-                        <span className="d-block" key={index}>{eggGroup.name.charAt(0).toUpperCase() + eggGroup.name.slice(1)}</span>
+                    <span className="d-block">{props.pokemonSpecies?.hatch_counter}</span>
+                    {props.pokemonSpecies?.egg_groups.map((eggGroup, index) => 
+                        <span className="d-block" key={index}>{formatDashString(eggGroup.name)}</span>
+                    )}
+                </Col>
+            </Row>
+            <Row>
+                <Col xs="6"><h3 className="fw-bold mt-3">Pokémon Evolution Requirements</h3></Col>
+            </Row>
+            <Row>
+                <Col className="fs-5" xs="12">
+                    {props.pokemonEvolutinChain?.chain.species.name !== props.pokemonName ? (
+                        props.pokemonEvolutinChain?.chain?.evolves_to.map((pokemon, index) =>
+                            pokemon.evolves_to[0].species.name === props.pokemonName ? (
+                                pokemon.evolves_to[0].evolution_details.map(evolve => {
+                                    return _.toPairsIn(refactorObject(evolve)).map((pokemonEvolveDetail, index) => {
+                                        return (
+                                            <Row key={index}>
+                                                <Col xs="3">
+                                                    <p className="my-0">{formatDashString(pokemonEvolveDetail[0])}</p>
+                                                </Col>
+                                                <Col xs="3">
+                                                    {typeof pokemonEvolveDetail[1] === "object" ? formatDashString(pokemonEvolveDetail[1].name) : formatDashString(pokemonEvolveDetail[1].toString())}
+                                                </Col>
+                                            </Row>
+                                        )
+                                    })
+                                })
+                                
+                            ) : (
+                                null
+                            )
+                            
+                        )
+                    ) : (
+                        <h6 style={{ color: "rgba(0, 0, 0, 0.5)" }}>This Pokemon doesn't have any Evolution Requirements</h6>
+                    )}
+                    
+                </Col>
+                <Col className="fs-5" xs="12">
+                    {props.pokemonEvolutinChain?.chain.species.name !== props.pokemonName ? (
+                        props.pokemonEvolutinChain?.chain?.evolves_to.map((pokemon, index) =>
+                            pokemon.species.name === props.pokemonName ? (
+                                pokemon.evolution_details.map(evolve => {
+                                    return _.toPairsIn(refactorObject(evolve)).map((pokemonEvolveDetail, index) => {
+                                        return (
+                                            <Row key={index}>
+                                                <Col xs="3">
+                                                    <p className="my-0">{formatDashString(pokemonEvolveDetail[0])}</p>
+                                                </Col>
+                                                <Col xs="3">
+                                                    {typeof pokemonEvolveDetail[1] === "object" ? formatDashString(pokemonEvolveDetail[1].name) : formatDashString(pokemonEvolveDetail[1].toString())}
+                                                </Col>
+                                            </Row>
+                                            )
+                                        })
+                                    })
+                                ) : (
+                                    null
+                                )
+                            )
+                        ) : (
+                        <h6 style={{ color: "rgba(0, 0, 0, 0.5)" }}>This Pokemon doesn't have any Evolution Requirements</h6>
                     )}
                 </Col>
             </Row>

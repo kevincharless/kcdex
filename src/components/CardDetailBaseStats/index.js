@@ -43,7 +43,7 @@ const CardDetailBaseStats = (props) => {
                             color = "#77DD77"
                         }
 
-                        return <span className="d-block" key={index}><Progress className="mb-3" value={stat.base_stat} max="255" style={{ borderRadius: "5rem", backgroundColor: `${color}` }} /></span>
+                        return <span className="d-block" key={index}><Progress className="ProgressBorder mb-3" value={stat.base_stat} max="255" style={{ borderRadius: "5rem", backgroundColor: `${color}` }} /></span>
                     })}
                 </Col>
             </Row>

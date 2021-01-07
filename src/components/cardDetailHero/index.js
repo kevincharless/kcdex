@@ -130,8 +130,9 @@ const CardDetailHero = (props) => {
                         </span>
                         <LogoPokemon id="LogoPokemonDetail"/>
                     </Col>
+                    <img id="PokemonDetailTypeIcon" src={iconType} alt="Pokemon Type Icon" />
                 </Row>
-                <img className="w-100" id="PokemonDetailTypeIcon" src={iconType} alt="Pokemon Type Icon" />
+                
             </Row>
         </div>
     )

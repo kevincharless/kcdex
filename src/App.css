@@ -194,30 +194,39 @@ z-index: 1;
 #PokemonNavbar .active {
     color: #FF6961;
 }
-#PokemonNavbar #PokemonNavbarDiv {
+
+#PokemonNavbarDiv {
     height: 0.25rem;
     width: 100%;
     background-color: #FF6961;
 }
-#PokemonNavbar #Text {
+#Text {
     width: 10rem;
 }
+#Text :hover {
+    cursor: pointer;
+}
+
 #LogoPokemonDetail {
     height: 14rem;
     opacity: 0.1;
     position: absolute;
     top: -68%;
     left: 81%;
-    z-index: 0;
+    z-index: -1;
 }
 
 #PokemonDetailTypeIcon {
-    height: 15rem;
+    height: 12rem;
     opacity: 0.3;
     position: absolute;
-    top: -5%;
-    left: 0;
-    z-index: 0;
+    top: -12%;
+    left: 6%;
+    z-index: -1;
+}
+
+.ProgressBorder {
+    border-radius: 5rem;
 }
 
 @media only screen and (min-width: 768px) {
@@ -228,15 +237,15 @@ z-index: 1;
         position: absolute;
         top: -64%;
         left: 85%;
-        z-index: 0;
+        z-index: -1;
     }
     #PokemonDetailTypeIcon {
-        height: 15rem;
+        height: 12rem;
         opacity: 0.3;
         position: absolute;
-        top: -4%;
-        left: 0;
-        z-index: 0;
+        top: -14%;
+        left: 4%;
+        z-index: -1;
     }
 }
 @media only screen and (min-width: 1281px) {
@@ -247,15 +256,15 @@ z-index: 1;
         position: absolute;
         top: -60%;
         left: 89%;
-        z-index: 0;
+        z-index: -1;
     }
     #PokemonDetailTypeIcon {
-        height: 15rem;
+        height: 12rem;
         opacity: 0.3;
         position: absolute;
-        top: -4%;
+        top: -15%;
         left: 0;
-        z-index: 0;
+        z-index: -1;
     }
 }
 
