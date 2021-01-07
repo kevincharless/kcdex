@@ -36,7 +36,7 @@ const Card = (props) => {
     useEffect(() => {
         let isMount = true
         axios.get(props.url)
-        .then(res => isMount && setPokemon(res.data))
+            .then(res => isMount && setPokemon(res.data))
 
         return () => isMount = false
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,10 +111,10 @@ const Card = (props) => {
     
     return (
         <div>
-            <Cardrs className="type my-2 pt-2" id={pokemon?.types[0]?.type?.name ? pokemon.types[0].type.name : `unknown`}>
+            <Cardrs className="type my-2 pt-2" id={pokemon?.types ? pokemon?.types[0]?.type?.name : `unknown`}>
                 <CardBody className="p-3">
                     <CardSubtitle id="PokemonId" tag="h6" className="d-flex justify-content-end fw-bold">{`#${pokemon.id}`}</CardSubtitle>
-                    <CardTitle id="PokemonName" className="mb-0 fw-bold" tag="h6">
+                    <CardTitle id="PokemonName" className="mb-0 mt-1 fw-bold" tag="h6">
                         {pokemon.name.charAt(0).toUpperCase() + pokemon.name.substr(1).toLowerCase()}
                     </CardTitle>
                     <Row>

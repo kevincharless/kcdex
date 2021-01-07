@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-import CardDetailAbout from '../../components/CardDetailAbout';
+import CardDetailEvolution from '../../components/CardDetailEvolution';
 import CardNavbar from '../../components/CardNavbar';
 import CardDetailHero from '../../components/CardDetailHero';
 
-
-const PokemonDetailAbout = () => {
+const PokemonDetailEvolution = () => {
     const { pokemonName } = useParams()
     const [pokemon, setPokemon] = useState(null)
     
@@ -23,11 +22,11 @@ const PokemonDetailAbout = () => {
             <CardDetailHero pokemon={pokemon} />
             <div className="py-3" id="NavbarPokemonDetail">
                 <CardNavbar pokemonName={pokemonName.toLowerCase()} />
-                <CardDetailAbout pokemon={pokemon} />
+                <CardDetailEvolution pokemon={pokemon} />
             </div>
             
         </div>
     )
 }
 
-export default PokemonDetailAbout
+export default PokemonDetailEvolution

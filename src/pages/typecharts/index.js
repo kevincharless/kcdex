@@ -1,5 +1,5 @@
 import React from 'react';
-import LoadingPage from '../loading';
+import LoadingPage from '../Loading';
 import Navbar from '../../components/NavBar/index';
 
 import { useSelector } from 'react-redux';

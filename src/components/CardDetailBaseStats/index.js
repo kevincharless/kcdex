@@ -7,7 +7,6 @@ import {
 } from 'reactstrap';
 
 const CardDetailBaseStats = (props) => {
-    console.log(props.pokemon)
     return (
         <Container className="py-5" style={{ height: "70vh" }}>
             <Row>
@@ -24,8 +23,8 @@ const CardDetailBaseStats = (props) => {
                     <span className="d-block">Total</span>
                 </Col>
                 <Col className="fs-5" xs="3" md="2">
-                    {props.pokemon.stats.map(stat => 
-                        <span className="d-block">{stat.base_stat}</span>
+                    {props.pokemon.stats.map((stat, index) => 
+                        <span className="d-block" key={index}>{stat.base_stat}</span>
                     )}
                     <span className="d-block fw-bold">
                         {props.pokemon.stats.reduce(function(total, stat) {
@@ -34,7 +33,7 @@ const CardDetailBaseStats = (props) => {
                     </span>
                 </Col>
                 <Col className="fs-5" xs="6" md="8">
-                    {props.pokemon.stats.map(stat =>{
+                    {props.pokemon.stats.map((stat, index) =>{
                         let color;
                         if(stat.base_stat < 60) {
                             color = "#FF6961"
@@ -44,7 +43,7 @@ const CardDetailBaseStats = (props) => {
                             color = "#77DD77"
                         }
 
-                        return <span className="d-block"><Progress className="mb-3" value={stat.base_stat} max="255" style={{ borderRadius: "5rem", backgroundColor: `${color}` }} /></span>
+                        return <span className="d-block" key={index}><Progress className="mb-3" value={stat.base_stat} max="255" style={{ borderRadius: "5rem", backgroundColor: `${color}` }} /></span>
                     })}
                 </Col>
             </Row>

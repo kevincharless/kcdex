@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import CardDetailBaseStats from '../../components/CardDetailBaseStats';
-import CardNavbar from '../../components/cardNavbar';
-import CardDetailHero from '../../components/cardDetailHero';
+import CardNavbar from '../../components/CardNavbar';
+import CardDetailHero from '../../components/CardDetailHero';
 
 const PokemonDetailBaseStats = () => {
     const { pokemonName } = useParams()

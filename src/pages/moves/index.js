@@ -4,8 +4,8 @@ import {
     Col,
     Row
 } from 'reactstrap'
-import Card from '../../components/card';
-import LoadingPage from '../loading';
+import Card from '../../components/Card';
+import LoadingPage from '../Loading';
 import Navbar from '../../components/NavBar/index';
 
 import PropTypes from 'prop-types';

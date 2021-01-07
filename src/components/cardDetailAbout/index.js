@@ -12,7 +12,7 @@ const CardDetailAbout = (props) => {
     useEffect(() => {
         axios.get(props.pokemon.species.url)
         .then(res => setPokemonSpecies(res.data))
-    }, [])
+    }, [props.pokemon.species.url])
     
     if(!props.pokemon) return null
 

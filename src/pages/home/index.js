@@ -6,9 +6,9 @@ import {
 } from 'reactstrap'
 import ReactPaginate from 'react-paginate';
 
-import Card from '../../components/card';
-import LoadingPage from '../loading';
-import Navbar from '../../components/NavBar/index';
+import Card from '../../components/Card';
+import LoadingPage from '../Loading';
+import Navbar from '../../components/NavBar';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPokemons } from '../../redux/actions'
@@ -31,13 +31,13 @@ const Home = () => {
     useEffect(() => {
         dispatch(fetchPokemons())
         
-    }, []) // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         setPokemonFilter(pokemonLists?.filter(pokemon => {
             return pokemon.name.toUpperCase().includes( keyword.toUpperCase() )
         }))
-    }, [keyword])
+    }, [pokemonLists, keyword])
 
     const handlePageClick = (currentPage) => {
         let selectedPage = currentPage.selected
@@ -68,14 +68,14 @@ const Home = () => {
                                 currentPokemonsFilter?.map((pokemon) => 
                                 <Col md="2" key={pokemon.url}>
                                     <Link to={`/pokemon/${pokemon.name}`} style={{ textDecoration: "none" }}>
-                                        <Card pokemons={pokemonLists} url={pokemon.url} />
+                                        <Card url={pokemon.url} />
                                     </Link>
                                 </Col>
                             )) : (
                                 currentPokemons?.map((pokemon) => 
                                 <Col md="2" key={pokemon.url}>
                                     <Link to={`/pokemon/${pokemon.name}`} style={{ textDecoration: "none" }}>
-                                        <Card pokemons={pokemonLists} url={pokemon.url} />
+                                        <Card url={pokemon.url} />
                                     </Link>
                                 </Col>
                             ))}

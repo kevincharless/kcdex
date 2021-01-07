@@ -4,9 +4,9 @@ import {
     Col,
     Row
 } from 'reactstrap'
-import Card from '../../components/card';
-import LoadingPage from '../loading';
-import Navbar from '../../components/NavBar/index';
+import Card from '../../components/Card';
+import LoadingPage from '../Loading';
+import Navbar from '../../components/NavBar';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPokemons } from '../../redux/actions'
