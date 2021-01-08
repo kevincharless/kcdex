@@ -34,7 +34,7 @@ const CardDetail = (props) => {
         } else {
             setActiveTab('1')
         }
-    }, [])
+    }, [props.prevPath])
 
     useEffect(() => {
         axios.get(props.pokemon.species.url)
