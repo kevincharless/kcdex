@@ -11,6 +11,7 @@ const CardDetail = (props) => {
     const [activeTab, setActiveTab] = useState('1');
 
     const [pokemonSpecies, setPokemonSpecies] = useState()
+    const [pokemonIsMega, setPokemonIsMega] = useState()
     const [pokemonEvolutinChain, setPokemonEvolutionChain] = useState()
     const [evolveFromSpecies, setEvolveFromSpecies] = useState()
     const [evolveSpecies, setEvolveSpecies] = useState([])
@@ -24,6 +25,11 @@ const CardDetail = (props) => {
         axios.get(props.pokemon.species.url)
         .then(res => setPokemonSpecies(res.data))
     }, [props.pokemon.species.url])
+
+    useEffect(() => {
+        axios.get(props.pokemon.forms[0].url)
+        .then(res => setPokemonIsMega(res.data))
+    }, [props.pokemon.forms[0].url])
 
     useEffect(() => {
         if(pokemonSpecies) {
@@ -126,7 +132,13 @@ const CardDetail = (props) => {
                 <TabPane tabId="1">
                     <Row>
                         <Col sm="12">
-                            <CardDetailAbout pokemon={props.pokemon} pokemonName={props.pokemonName} pokemonSpecies={pokemonSpecies} pokemonEvolutinChain={pokemonEvolutinChain} />
+                            <CardDetailAbout
+                                pokemon={props.pokemon}
+                                pokemonName={props.pokemonName}
+                                pokemonSpecies={pokemonSpecies}
+                                pokemonEvolutinChain={pokemonEvolutinChain}
+                                pokemonIsMega={pokemonIsMega}
+                            />
                         </Col>
                     </Row>
                 </TabPane>
@@ -142,11 +154,8 @@ const CardDetail = (props) => {
                 <TabPane tabId="3">
                     <Row>
                         <Col sm="12">
-                            <h4>Tab 3 Evolution</h4>
                             <CardDetailEvolution
-                                pokemon={props.pokemon}
                                 pokemonSpecies={pokemonSpecies}
-                                pokemonEvolutinChain={pokemonEvolutinChain}
                                 evolveFromSpecies={evolveFromSpecies}
                                 evolveSpecies={evolveSpecies}
                                 evolveToSpecies={evolveToSpecies}

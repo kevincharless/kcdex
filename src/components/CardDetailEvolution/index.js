@@ -18,7 +18,6 @@ const CardDetailEvolution = (props) => {
     }
 
     if(!props.pokemonSpecies) return <LoadingPage />
-    if(!props.pokemonEvolutinChain) return <LoadingPage />
     if(!props.evolveFromSpecies) return <LoadingPage />
     if(!props.evolveSpecies) return <LoadingPage />
 
