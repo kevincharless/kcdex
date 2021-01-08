@@ -67,7 +67,7 @@ const CardDetailEvolution = (props) => {
                             null
                         ))
                     ) : (
-                    <h6 style={{ color: "rgba(0, 0, 0, 0.5)" }}>This Pokemon doesn't have any variety</h6>
+                    <h6 className="pb-5" style={{ color: "rgba(0, 0, 0, 0.5)" }}>This Pokemon doesn't have any variety</h6>
                 )}
             </Row>
         </Container>
