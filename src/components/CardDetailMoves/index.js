@@ -26,7 +26,7 @@ const CardDetailMoves = (props) => {
                     <tbody className="text-center">
                         {props.pokemonMoveDetail?.map((moveDetail, index)=>
                             <tr style={{ borderBottom: "0.15rem solid #FF6961" }} key={index}>
-                                <th>{filterMoveLevelUp(props.pokemon.moves)[index].version_group_details[0].level_learned_at}</th>
+                                <th>{filterMoveLevelUp(props.pokemon?.moves)[index]?.version_group_details[0]?.level_learned_at}</th>
                                 <td>{moveDetail.name}</td>
                                 <td>{moveDetail.type.name}</td>
                                 <td>{moveDetail.damage_class.name}</td>
