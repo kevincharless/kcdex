@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Container, TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Container, TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import axios from 'axios';
 
 import CardDetailAbout from '../CardDetailAbout';
 import CardDetailBaseStats from '../CardDetailBaseStats';
 import CardDetailEvolution  from '../CardDetailEvolution';
+import CardDetailMoves from '../CardDetailMoves';
 
 const CardDetail = (props) => {
     const [activeTab, setActiveTab] = useState('1');
@@ -16,6 +17,8 @@ const CardDetail = (props) => {
     const [evolveFromSpecies, setEvolveFromSpecies] = useState()
     const [evolveSpecies, setEvolveSpecies] = useState([])
     const [evolveToSpecies, setEvolveToSpecies] = useState()
+    const [pokemonMoveDetail, setPokemonMoveDetail] = useState()
+    const [pokemonMoveDetailTM, setPokemonMoveDetailTM] = useState()
 
     const toggle = tab => {
         if(activeTab !== tab) setActiveTab(tab);
@@ -29,7 +32,7 @@ const CardDetail = (props) => {
     useEffect(() => {
         axios.get(props.pokemon.forms[0].url)
         .then(res => setPokemonIsMega(res.data))
-    }, [props.pokemon.forms[0].url])
+    }, [props.pokemon.forms])
 
     useEffect(() => {
         if(pokemonSpecies) {
@@ -64,7 +67,31 @@ const CardDetail = (props) => {
             )
         )
     }, [pokemonEvolutinChain, evolveFromSpecies])
+
+    useEffect(() => {
+        props.pokemon.moves.map((move, index) => 
+            move.version_group_details[0].move_learn_method.name === "level-up" ? (
+                axios.get(move.move.url).then(res => setPokemonMoveDetail(
+                    prevPokemonMoveDetail => [...prevPokemonMoveDetail, res.data
+                ]))
+            ) : (
+                null
+            ))
+            return setPokemonMoveDetail([])
+    }, [props.pokemon.moves])
     
+    useEffect(() => {
+        props.pokemon.moves.map((move, index) => 
+            move.version_group_details[0].move_learn_method.name === "machine" ? (
+                axios.get(move.move.url).then(res => setPokemonMoveDetailTM(
+                    prevPokemonMoveDetailTM => [...prevPokemonMoveDetailTM, res.data
+                ]))
+            ) : (
+                null
+            ))
+            return setPokemonMoveDetailTM([])
+    }, [props.pokemon.moves])
+
     if(!props.pokemon) return null
 
     return (
@@ -131,44 +158,36 @@ const CardDetail = (props) => {
             <TabContent activeTab={activeTab}>
                 <TabPane tabId="1">
                     <Row>
-                        <Col sm="12">
-                            <CardDetailAbout
-                                pokemon={props.pokemon}
-                                pokemonName={props.pokemonName}
-                                pokemonSpecies={pokemonSpecies}
-                                pokemonEvolutinChain={pokemonEvolutinChain}
-                                pokemonIsMega={pokemonIsMega}
-                            />
-                        </Col>
+                        <CardDetailAbout
+                            pokemon={props.pokemon}
+                            pokemonName={props.pokemonName}
+                            pokemonSpecies={pokemonSpecies}
+                            pokemonEvolutinChain={pokemonEvolutinChain}
+                            pokemonIsMega={pokemonIsMega}
+                        />
                     </Row>
                 </TabPane>
 
                 <TabPane tabId="2">
                     <Row>
-                        <Col sm="12">
-                            <CardDetailBaseStats pokemon={props.pokemon} />
-                        </Col>
+                        <CardDetailBaseStats pokemon={props.pokemon} />
                     </Row>
                 </TabPane>
 
                 <TabPane tabId="3">
                     <Row>
-                        <Col sm="12">
-                            <CardDetailEvolution
-                                pokemonSpecies={pokemonSpecies}
-                                evolveFromSpecies={evolveFromSpecies}
-                                evolveSpecies={evolveSpecies}
-                                evolveToSpecies={evolveToSpecies}
-                            />
-                        </Col>
+                        <CardDetailEvolution
+                            pokemonSpecies={pokemonSpecies}
+                            evolveFromSpecies={evolveFromSpecies}
+                            evolveSpecies={evolveSpecies}
+                            evolveToSpecies={evolveToSpecies}
+                        />
                     </Row>
                 </TabPane>
 
                 <TabPane tabId="4">
                     <Row>
-                        <Col sm="12">
-                            <h4>Tab 4 Moves</h4>
-                        </Col>
+                        <CardDetailMoves pokemon={props.pokemon} pokemonMoveDetail={pokemonMoveDetail} pokemonMoveDetailTM={pokemonMoveDetailTM} />
                     </Row>
                 </TabPane>
             </TabContent>

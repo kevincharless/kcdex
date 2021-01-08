@@ -14,8 +14,8 @@ const PokemonDetail = () => {
         .then(res => setPokemon(res.data))
     }, [pokemonName])
 
-    if (!pokemon) return null
 
+    if (!pokemon) return null
     return (
         <div id={pokemon?.types[0]?.type?.name ? pokemon.types[0].type.name : `unknown`}>
             <CardDetailHero pokemon={pokemon} />
