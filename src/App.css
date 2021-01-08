@@ -268,3 +268,17 @@ z-index: 1;
     }
 }
 
+/* Pagination */
+.page-item {
+    color: #FF6961;
+}
+.page-item.active .page-link {
+    background-color: #FF6961;
+    border-color: #FF6961;
+}
+.pagination :hover{
+    color: #FF6961;
+}
+.page-link {
+    color: #FF6961;
+}

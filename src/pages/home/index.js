@@ -80,7 +80,7 @@ const Home = () => {
                                 </Col>
                             ))}
                         </Row>
-                        <Row>
+                        <Row className="py-4">
                             <ReactPaginate
                                 previousLabel={'previous'}
                                 nextLabel={'next'}
@@ -88,10 +88,10 @@ const Home = () => {
                                 breakClassName={"page-item disabled"}
                                 breakLinkClassName={"page-link"}
                                 marginPagesDisplayed={2}
-                                pageRangeDisplayed={5}
+                                pageRangeDisplayed={2}
                                 pageCount={keyword ? pokemonFilter?.length/30 : pokemonCounts/30}
                                 onPageChange={handlePageClick}
-                                containerClassName={"pagination"}
+                                containerClassName={"pagination d-flex justify-content-center"}
                                 pageClassName={"page-item"}
                                 pageLinkClassName={"page-link"}
                                 previousClassName={"page-item"}
@@ -99,6 +99,7 @@ const Home = () => {
                                 nextClassName={"page-item"}
                                 nextLinkClassName={"page-link"}
                                 activeClassName={'active'}
+                                style={{ width: "0" }}
                             />
                         </Row>
                     </Container>
