@@ -1,5 +1,5 @@
 import axios from '../../axios';
-import { FETCH_POKEMONS, FETCH_LOADING, FETCH_LOADED } from './types';
+import { FETCH_POKEMONS, FETCH_LOADING, FETCH_LOADED, PREV_PATH } from './types';
 
 export const fetchLoading = () => ({type: FETCH_LOADING})
 export const fetchLoaded = () => ({type: FETCH_LOADED})
@@ -17,4 +17,11 @@ export const fetchPokemons = () => dispatch => {
         .catch(err => {
             console.log(err)
         })
+}
+
+export const prevPath =(path) => dispatch =>{
+    dispatch({
+        type: PREV_PATH,
+        payload: path
+    })
 }

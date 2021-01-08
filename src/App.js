@@ -5,7 +5,7 @@ import PokemonDetail from './pages/PokemonDetail';
 import Home from './pages/Home';
 import Moves from './pages/Moves';
 import Forms from './pages/Forms';
-import Items from './pages/Items';
+import Stats from './pages/Stats';
 import TypeCharts from './pages/Typecharts';
 import { Provider } from 'react-redux'
 import store from './redux/store';
@@ -20,7 +20,7 @@ function App() {
               <Route exact path="/pokemon/"><Home /></Route>
               <Route path="/moves/"><Moves /></Route>
               <Route path="/forms/"><Forms /></Route>
-              <Route path="/items/"><Items /></Route>
+              <Route path="/stats/"><Stats /></Route>
               <Route path="/typecharts/"><TypeCharts /></Route>
               <Route exact path="/pokemon/:pokemonName/"><PokemonDetail /></Route>
             </Switch>

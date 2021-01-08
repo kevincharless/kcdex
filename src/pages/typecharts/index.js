@@ -1,23 +1,25 @@
 import React from 'react';
-import LoadingPage from '../Loading';
 import Navbar from '../../components/NavBar/index';
-
-import { useSelector } from 'react-redux';
+import TypeChart from '../../assets/images/typechart.jpg';
+import { Container, Row } from 'reactstrap';
 
 const TypeCharts = () => {
-    const pokemons = useSelector(state => state.pokemons)
 
     return (
         <>
-            {pokemons.isLoading ? (
-                <LoadingPage />
-                ) : (
-                <Navbar 
-                    title="Type"
-                    backgroundColor="#A890F0"
-                />
-                )
-            }
+            <Navbar 
+                title="Type"
+                backgroundColor="#A890F0"
+            />
+            <Container className="pt-3">
+            
+                <Row>
+                    <h1 className="fw-bold">Type Charts</h1>
+                </Row>
+                <Row>
+                    <img src={TypeChart} alt="Pokemon Type Charts" />
+                </Row>
+            </Container>
         </>
     )
 }

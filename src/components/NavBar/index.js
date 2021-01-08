@@ -64,8 +64,8 @@ const NavBar = (props) => {
                         </Link>
                     </Col>
                     <Col className="d-flex justify-content-center py-3">
-                        <Link to="/items">
-                            <Button className="border-0" id="ButtonItems">Items
+                        <Link to="/stats">
+                            <Button className="border-0" id="ButtonItems">Stats
                                 <LogoPokemon id="LogoPokemon" />
                             </Button>
                         </Link>

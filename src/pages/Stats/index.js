@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPokemons, prevPath } from '../../redux/actions'
 import { Link } from 'react-router-dom';
 
-const Moves = () => {
+const Stats = () => {
     const dispatch = useDispatch()
 
     const pokemons = useSelector(state => state.pokemons)
@@ -55,8 +55,8 @@ const Moves = () => {
                 ) : (
                 <>
                     <Navbar 
-                        title="Moves"
-                        backgroundColor="#77DD77"
+                        title="Stats"
+                        backgroundColor="#FDDD5C"
                         handleOnChange={handleOnChange}
                     />
                     <Container className="pt-3">
@@ -109,4 +109,4 @@ const Moves = () => {
     )
 }
 
-export default Moves
+export default Stats

@@ -1,9 +1,10 @@
-import { FETCH_POKEMONS, FETCH_LOADING, FETCH_LOADED } from '../actions/types';
+import { FETCH_POKEMONS, FETCH_LOADING, FETCH_LOADED, PREV_PATH } from '../actions/types';
 
 const initialState = {
     pokemonLists:[],
     isLoading: true,
-    isMount: true
+    isMount: true,
+    prevPath: ""
 
 }
 
@@ -24,6 +25,11 @@ export default function pokemonReducer(state = initialState, action) {
             return {
                 ...state,
                 pokemonLists: action.payload,
+            }
+        case PREV_PATH:
+            return {
+                ...state,
+                prevPath: action.payload
             }
         default: 
             return state

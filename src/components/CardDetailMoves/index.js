@@ -1,19 +1,10 @@
-import React, { useEffect, useState} from 'react';
+import React from 'react';
 import { Col, Table } from 'reactstrap';
 
+import { filterMoveLevelUp } from '../../util/filterMoveLevelUp';
 
 const CardDetailMoves = (props) => {
-    const [pokemonMove, setPokemonMove] = useState()
-
-    useEffect(() => {
-        {props.pokemon.moves.forEach((move, index) => 
-            move.version_group_details[0].move_learn_method.name === "level-up" ? (
-                console.log(move.version_group_details[0].level_learned_at)
-            ) : (
-                null
-            ))}
-    }, [])
-console.log(pokemonMove)
+    
     if(!props.pokemon) return null
     if(!props.pokemonMoveDetail) return null
     return (
@@ -31,20 +22,22 @@ console.log(pokemonMove)
                             <th>Accuracy</th>
                         </tr>
                     </thead>
+                    
                     <tbody className="text-center">
-                        {props.pokemonMoveDetail.map((moveDetail, index)=>
-                                <tr style={{ borderBottom: "0.15rem solid #FF6961" }} key={index}>
-                                    <th ></th>
-                                    <td>{moveDetail.name}</td>
-                                    <td>{moveDetail.type.name}</td>
-                                    <td>{moveDetail.damage_class.name}</td>
-                                    <td>{
-                                        moveDetail.power || 0}
-                                    </td>
-                                    <td>{moveDetail.accuracy || 0}</td>
-                                </tr>
-                            )}
+                        {props.pokemonMoveDetail?.map((moveDetail, index)=>
+                            <tr style={{ borderBottom: "0.15rem solid #FF6961" }} key={index}>
+                                <th>{filterMoveLevelUp(props.pokemon.moves)[index].version_group_details[0].level_learned_at}</th>
+                                <td>{moveDetail.name}</td>
+                                <td>{moveDetail.type.name}</td>
+                                <td>{moveDetail.damage_class.name}</td>
+                                <td>{
+                                    moveDetail.power || 0}
+                                </td>
+                                <td>{moveDetail.accuracy || 0}</td>
+                            </tr>
+                        )}
                     </tbody>
+                    
                 </Table>
             </Col>
 
@@ -53,7 +46,6 @@ console.log(pokemonMove)
                 <Table responsive>
                     <thead className="text-center" style={{ backgroundColor: "#FF6961", color: "#F6F6F6", borderRadius: "1rem" }}>
                         <tr >
-                            <th>TM</th>
                             <th>Moves</th>
                             <th>Type</th>
                             <th>Category</th>
@@ -64,7 +56,6 @@ console.log(pokemonMove)
                     <tbody className="text-center">
                         {props.pokemonMoveDetailTM.map((moveDetailTM, index)=>
                                 <tr style={{ borderBottom: "0.15rem solid #FF6961" }} key={index}>
-                                    <th ></th>
                                     <td>{moveDetailTM.name}</td>
                                     <td>{moveDetailTM.type.name}</td>
                                     <td>{moveDetailTM.damage_class.name}</td>

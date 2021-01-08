@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from 'reactstrap';
+import { Container, TabContent, TabPane, Nav, NavItem, NavLink, Row } from 'reactstrap';
 import classnames from 'classnames';
 import axios from 'axios';
 
@@ -23,6 +23,18 @@ const CardDetail = (props) => {
     const toggle = tab => {
         if(activeTab !== tab) setActiveTab(tab);
     }
+
+    useEffect(() => {
+        if(props.prevPath?.includes("moves")) {
+            setActiveTab('4')
+        } else if(props.prevPath?.includes("forms")) {
+            setActiveTab('3')
+        } else if(props.prevPath.includes("stats")) {
+            setActiveTab('2')
+        } else {
+            setActiveTab('1')
+        }
+    }, [])
 
     useEffect(() => {
         axios.get(props.pokemon.species.url)

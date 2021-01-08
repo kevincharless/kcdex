@@ -11,7 +11,7 @@ import LoadingPage from '../Loading';
 import Navbar from '../../components/NavBar';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPokemons } from '../../redux/actions'
+import { fetchPokemons, prevPath } from '../../redux/actions'
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -30,7 +30,7 @@ const Home = () => {
     
     useEffect(() => {
         dispatch(fetchPokemons())
-        
+        dispatch(prevPath(window.location.href))
     }, [dispatch]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
     useEffect(() => {
