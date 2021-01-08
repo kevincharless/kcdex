@@ -2,11 +2,11 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import PokemonDetail from './pages/PokemonDetail';
 
-import Home from './pages/Home/index';
-import Moves from './pages/Moves/index';
-import Forms from './pages/Forms/index';
-import Stats from './pages/Stats/index';
-import TypeCharts from './pages/Typecharts/index';
+import Home from './pages/Home';
+import Moves from './pages/Moves';
+import Forms from './pages/Forms';
+import Stats from './pages/Stats';
+import TypeCharts from './pages/Typecharts';
 import { Provider } from 'react-redux'
 import store from './redux/store';
 
